@@ -36,10 +36,10 @@ class VideoToText:
         self.audio_path = None
         self.recognizer = sr.Recognizer()
         
-        # Subtitle optimization settings
-        self.max_subtitle_length = 42  # characters per line
-        self.max_subtitle_duration = 7000  # milliseconds
-        self.min_subtitle_duration = 1000  # milliseconds
+        # Subtitle optimization settings (configurable)
+        self.max_subtitle_length = 42  # characters per line (standard for readability)
+        self.max_subtitle_duration = 7000  # milliseconds (standard subtitle duration)
+        self.min_subtitle_duration = 1000  # milliseconds (minimum readable duration)
         
     def extract_audio(self):
         """Extract audio from video file using ffmpeg"""
@@ -73,10 +73,10 @@ class VideoToText:
         ]
         
         try:
-            result = subprocess.run(cmd, 
-                                  stdout=subprocess.PIPE, 
-                                  stderr=subprocess.PIPE,
-                                  check=True)
+            subprocess.run(cmd, 
+                         stdout=subprocess.PIPE, 
+                         stderr=subprocess.PIPE,
+                         check=True)
             print(f"Audio extracted successfully: {self.audio_path.name}")
             return True
         except subprocess.CalledProcessError as e:

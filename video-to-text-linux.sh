@@ -10,6 +10,10 @@ CYAN='\033[0;36m'
 WHITE='\033[1;37m'
 NC='\033[0m' # No Color
 
+# Video file extensions pattern
+VIDEO_EXTENSIONS="*.mp4 *.avi *.mkv *.mov *.flv *.wmv *.webm *.m4v *.mpg *.mpeg"
+VIDEO_FIND_PATTERN="\( -iname \"*.mp4\" -o -iname \"*.avi\" -o -iname \"*.mkv\" -o -iname \"*.mov\" -o -iname \"*.flv\" -o -iname \"*.wmv\" -o -iname \"*.webm\" -o -iname \"*.m4v\" -o -iname \"*.mpg\" -o -iname \"*.mpeg\" \)"
+
 # Function to display banner
 show_banner() {
     echo ""
@@ -112,7 +116,7 @@ select_video_file() {
         case $choice in
             1)
                 video_path=$(zenity --file-selection --title="Selectați fișierul video" \
-                    --file-filter='Video files (mp4,avi,mkv,mov,flv,wmv,webm) | *.mp4 *.avi *.mkv *.mov *.flv *.wmv *.webm *.m4v *.mpg *.mpeg' \
+                    --file-filter="Video files (mp4,avi,mkv,mov,flv,wmv,webm) | $VIDEO_EXTENSIONS" \
                     --file-filter='All files | *' 2>/dev/null)
                 
                 if [ -n "$video_path" ] && [ -f "$video_path" ]; then
@@ -148,7 +152,7 @@ select_video_file() {
                 local video_files=()
                 while IFS= read -r -d '' file; do
                     video_files+=("$file")
-                done < <(find . -maxdepth 1 -type f \( -iname "*.mp4" -o -iname "*.avi" -o -iname "*.mkv" -o -iname "*.mov" -o -iname "*.flv" -o -iname "*.wmv" -o -iname "*.webm" -o -iname "*.m4v" \) -print0 2>/dev/null)
+                done < <(find . -maxdepth 1 -type f \( -iname "*.mp4" -o -iname "*.avi" -o -iname "*.mkv" -o -iname "*.mov" -o -iname "*.flv" -o -iname "*.wmv" -o -iname "*.webm" -o -iname "*.m4v" -o -iname "*.mpg" -o -iname "*.mpeg" \) -print0 2>/dev/null)
                 
                 if [ ${#video_files[@]} -eq 0 ]; then
                     echo -e "${RED}✗ Nu s-au găsit fișiere video în directorul curent${NC}"
@@ -211,7 +215,7 @@ select_video_file() {
                 local video_files=()
                 while IFS= read -r -d '' file; do
                     video_files+=("$file")
-                done < <(find . -maxdepth 1 -type f \( -iname "*.mp4" -o -iname "*.avi" -o -iname "*.mkv" -o -iname "*.mov" -o -iname "*.flv" -o -iname "*.wmv" -o -iname "*.webm" -o -iname "*.m4v" \) -print0 2>/dev/null)
+                done < <(find . -maxdepth 1 -type f \( -iname "*.mp4" -o -iname "*.avi" -o -iname "*.mkv" -o -iname "*.mov" -o -iname "*.flv" -o -iname "*.wmv" -o -iname "*.webm" -o -iname "*.m4v" -o -iname "*.mpg" -o -iname "*.mpeg" \) -print0 2>/dev/null)
                 
                 if [ ${#video_files[@]} -eq 0 ]; then
                     echo -e "${RED}✗ Nu s-au găsit fișiere video în directorul curent${NC}"

@@ -224,7 +224,7 @@ function Start-VideoProcessing {
     Write-Host ""
     
     # Get script directory
-    $scriptDir = Split-Path -Parent $MyInvocation.PSCommandPath
+    $scriptDir = $PSScriptRoot
     if ([string]::IsNullOrEmpty($scriptDir)) {
         $scriptDir = Get-Location
     }
